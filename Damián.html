@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puentes Invisibles · Damián Krzychowiec</title>
+  <meta name="description" content="El viaje del Cartógrafo de Interfaces. Una historia de transformación, liderazgo y conexión entre mundos.">
+  <meta name="keywords" content="Damián Krzychowiec, puentes invisibles, cartógrafo de interfaces, transformación digital, liderazgo, Carlos Scolari">
+  <meta name="author" content="Damián Krzychowiec">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.damiangk.com/">
+  <meta property="og:title" content="Puentes Invisibles · Damián Krzychowiec">
+  <meta property="og:description" content="El viaje del Cartógrafo de Interfaces. Una historia de transformación, liderazgo y conexión entre mundos.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop">
+  <meta property="og:url" content="https://www.damiangk.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- VARIABLES Y RESET ---------- */
+    :root {
+      --color-primary: #1A2E40;      /* 60% - azul profundo, confianza, profundidad */
+      --color-secondary: #1ABC9C;     /* 30% - verde esmeralda, guía, camino */
+      --color-accent: #F39C12;        /* 10% - ámbar, destellos, comprensión */
+      --color-bg: #0F1A24;
+      --color-text: #EAECEE;
+      --color-text-dark: #2C3E50;
+      --shadow-soft: 0 20px 40px -10px rgba(0,0,0,0.5);
+      --transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      --font-head: 'Cinzel', serif;
+      --font-body: 'Open Sans', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* ---------- TYPOGRAPHY ---------- */
+    h1, h2, h3, h4 {
+      font-family: var(--font-head);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    /* ---------- UTILITY CLASSES ---------- */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section {
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section--dark {
+      background-color: rgba(26, 46, 64, 0.9);
+    }
+
+    .section__header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section__title {
+      font-size: 3rem;
+      color: var(--color-secondary);
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .section__title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--color-accent);
+    }
+
+    .section__subtitle {
+      font-size: 1.2rem;
+      color: var(--color-text);
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.8;
+    }
+
+    /* ---------- BOTONES ---------- */
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      border: 2px solid transparent;
+      cursor: pointer;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .btn--primary {
+      background: var(--color-secondary);
+      color: var(--color-primary);
+    }
+
+    .btn--primary:hover {
+      background: transparent;
+      border-color: var(--color-secondary);
+      color: var(--color-secondary);
+      transform: translateY(-3px);
+    }
+
+    .btn--outline {
+      background: transparent;
+      border-color: var(--color-secondary);
+      color: var(--color-secondary);
+    }
+
+    .btn--outline:hover {
+      background: var(--color-secondary);
+      color: var(--color-primary);
+      transform: translateY(-3px);
+    }
+
+    /* ---------- HEADER / NAV ---------- */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(15, 26, 36, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(26, 188, 156, 0.2);
+      transition: var(--transition);
+    }
+
+    .header__container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+
+    .logo {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--color-secondary);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+    }
+
+    .logo span {
+      color: var(--color-accent);
+    }
+
+    .nav__list {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav__link {
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--color-accent);
+      transition: var(--transition);
+    }
+
+    .nav__link:hover::after,
+    .nav__link--active::after {
+      width: 100%;
+    }
+
+    .nav__link:hover {
+      color: var(--color-secondary);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--color-secondary);
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+      background-attachment: fixed;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(26, 46, 64, 0.9) 0%, rgba(26, 188, 156, 0.3) 100%);
+      backdrop-filter: blur(2px);
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 20px;
+    }
+
+    .hero__pretitle {
+      font-size: 1.2rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+
+    .hero__title {
+      font-size: 5rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 30px;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .hero__title span {
+      color: var(--color-secondary);
+      display: block;
+      font-size: 3rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+    }
+
+    .hero__subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 40px;
+      opacity: 0.9;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero__buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      color: white;
+      font-size: 1.5rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+      40% {transform: translateX(-50%) translateY(-20px);}
+      60% {transform: translateX(-50%) translateY(-10px);}
+    }
+
+    /* ---------- ACTOS (SECCIONES) ---------- */
+    .acto {
+      position: relative;
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+    }
+
+    .acto::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 26, 36, 0.75);
+      backdrop-filter: blur(3px);
+    }
+
+    .acto__container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .acto__pensamiento {
+      font-family: var(--font-head);
+      font-size: 2.5rem;
+      color: var(--color-secondary);
+      margin-bottom: 40px;
+      line-height: 1.3;
+      max-width: 800px;
+    }
+
+    .acto__pensamiento::before {
+      content: '“';
+      font-size: 4rem;
+      color: var(--color-accent);
+      opacity: 0.5;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .acto__content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .acto__text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .acto__text p {
+      margin-bottom: 20px;
+    }
+
+    .acto__image {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      border: 3px solid rgba(26, 188, 156, 0.3);
+      transition: var(--transition);
+    }
+
+    .acto__image:hover {
+      border-color: var(--color-accent);
+      transform: scale(1.02);
+    }
+
+    .acto__image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Acto 1 */
+    .acto--1 {
+      background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop');
+    }
+    /* Acto 2 */
+    .acto--2 {
+      background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');
+    }
+    /* Acto 3 */
+    .acto--3 {
+      background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop');
+    }
+    /* Acto 4 */
+    .acto--4 {
+      background-image: url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2080&auto=format&fit=crop');
+    }
+    /* Acto 5 */
+    .acto--5 {
+      background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop');
+    }
+    /* Acto 6 */
+    .acto--6 {
+      background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1974&auto=format&fit=crop');
+    }
+
+    /* ---------- PROYECTO DESTACADO ---------- */
+    .project {
+      background: linear-gradient(145deg, var(--color-primary) 0%, #0F1A24 100%);
+      padding: 80px 0;
+    }
+
+    .project__card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 40px;
+      padding: 60px;
+      border: 1px solid rgba(26, 188, 156, 0.2);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .project__title {
+      font-size: 2.5rem;
+      color: var(--color-secondary);
+      margin-bottom: 30px;
+    }
+
+    .project__highlight {
+      color: var(--color-accent);
+      font-weight: 700;
+    }
+
+    .project__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    .project__item {
+      background: rgba(26, 46, 64, 0.5);
+      padding: 30px;
+      border-radius: 20px;
+      border-left: 4px solid var(--color-accent);
+    }
+
+    /* ---------- FORMULARIO ---------- */
+    .contact {
+      background: var(--color-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(26,188,156,0.1) 0%, transparent 70%);
+    }
+
+    .form {
+      max-width: 700px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      padding: 60px;
+      border-radius: 40px;
+      border: 1px solid rgba(243, 156, 18, 0.2);
+      position: relative;
+      z-index: 2;
+    }
+
+    .form__group {
+      margin-bottom: 25px;
+    }
+
+    .form__label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--color-secondary);
+      letter-spacing: 0.05em;
+    }
+
+    .form__input {
+      width: 100%;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid transparent;
+      border-radius: 50px;
+      font-size: 1rem;
+      color: white;
+      transition: var(--transition);
+    }
+
+    .form__input:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .form__input::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+
+    .form__button {
+      background: var(--color-accent);
+      color: var(--color-primary);
+      border: none;
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    .form__button:hover {
+      background: var(--color-secondary);
+      transform: translateY(-3px);
+    }
+
+    .form__status {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer {
+      background: #0A121C;
+      padding: 60px 0 30px;
+      text-align: center;
+    }
+
+    .footer__social {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .footer__social a {
+      color: var(--color-text);
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .footer__social a:hover {
+      color: var(--color-accent);
+      transform: translateY(-5px);
+    }
+
+    .footer__copy {
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: rgba(15, 26, 36, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        transform: translateY(-150%);
+        opacity: 0;
+        transition: var(--transition);
+        border-bottom: 1px solid var(--color-secondary);
+      }
+
+      .nav--active {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .nav__list {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .hero__title {
+        font-size: 3rem;
+      }
+
+      .hero__title span {
+        font-size: 2rem;
+      }
+
+      .section__title {
+        font-size: 2rem;
+      }
+
+      .acto__pensamiento {
+        font-size: 1.8rem;
+      }
+
+      .acto__content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .project__card {
+        padding: 30px;
+      }
+
+      .form {
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container header__container">
+      <a href="#" class="logo">DAMIÁN<span>K</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menú">☰</button>
+      <nav class="nav" id="nav">
+        <ul class="nav__list">
+          <li><a href="#prologo" class="nav__link">Prólogo</a></li>
+          <li><a href="#acto1" class="nav__link">I</a></li>
+          <li><a href="#acto2" class="nav__link">II</a></li>
+          <li><a href="#acto3" class="nav__link">III</a></li>
+          <li><a href="#acto4" class="nav__link">IV</a></li>
+          <li><a href="#acto5" class="nav__link">V</a></li>
+          <li><a href="#acto6" class="nav__link">VI</a></li>
+          <li><a href="#proyecto" class="nav__link">Obra</a></li>
+          <li><a href="#contacto" class="nav__link">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="prologo">
+      <div class="hero__content">
+        <div class="hero__pretitle">El Cartógrafo de Interfaces</div>
+        <h1 class="hero__title">PUENTES <span>INVISIBLES</span></h1>
+        <p class="hero__subtitle">Veinte años aprendiendo a leer lo que nadie ve. Ahora trazo el mapa para que otros puedan cruzar.</p>
+        <div class="hero__buttons">
+          <a href="#acto1" class="btn btn--primary">Iniciar viaje</a>
+          <a href="#contacto" class="btn btn--outline">Caminemos juntos</a>
+        </div>
+      </div>
+      <div class="scroll-indicator">⌄</div>
+    </section>
+
+    <!-- ACTO I -->
+    <section class="section acto acto--1" id="acto1">
+      <div class="container acto__container">
+        <div class="acto__pensamiento">"Siempre supe que mi oficio era traducir, aunque no tuviera nombre."</div>
+        <div class="acto__content">
+          <div class="acto__text">
+            <p>Mucho antes de que existiera la palabra "interfaz", yo ya construía puentes. En cada equipo que formaba, en cada persona que acompañaba, en cada problema que ayudaba a resolver, había un hilo invisible que conectaba mundos.</p>
+            <p>No sabía que estaba entrenando para algo más grande. Solo sentía una certeza: cuando alguien entiende, algo en su mirada cambia. Y yo quería ver ese cambio una y otra vez.</p>
+          </div>
+          <div class="acto__image">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" alt="Liderazgo humano" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTO II -->
+    <section class="section acto acto--2" id="acto2">
+      <div class="container acto__container">
+        <div class="acto__pensamiento">"El mundo empezó a digitalizarse, y yo sentí que mi mapa se quedaba corto."</div>
+        <div class="acto__content">
+          <div class="acto__image">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop" alt="Frontera digital" loading="lazy">
+          </div>
+          <div class="acto__text">
+            <p>De repente, todo cambiaba. Las personas ya no solo estaban en las oficinas, también en pantallas. Los problemas ya no eran solo humanos, eran también digitales. Y yo, que había pasado años leyendo gestos y emociones, me encontré frente a un territorio nuevo.</p>
+            <p>Podía haber sentido miedo. Pero sentí curiosidad. Como cuando llegas a una ciudad desconocida y sabes que, aunque no tengas mapa, hay calles que se parecen a las que ya conocés.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTO III -->
+    <section class="section acto acto--3" id="acto3">
+      <div class="container acto__container">
+        <div class="acto__pensamiento">"Aprendí código, herramientas, estrategias. Pero algo no encajaba."</div>
+        <div class="acto__content">
+          <div class="acto__text">
+            <p>Me sumergí. HTML, CSS, Python, JavaScript, marketing digital, e-commerce. Aprendí rápido. Pero cada vez que terminaba un curso, sentía que me estaba convirtiendo en alguien que no era. Podía construir páginas, pero eso no me hacía diferente.</p>
+            <p>El ruido técnico tapaba mi verdadera voz. La del tipo que siempre supo explicar, conectar, traducir. Empecé a preguntarme: ¿y si el problema no es lo que aprendo, sino cómo lo estoy usando?</p>
+          </div>
+          <div class="acto__image">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop" alt="Código y tecnología" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTO IV -->
+    <section class="section acto acto--4" id="acto4">
+      <div class="container acto__container">
+        <div class="acto__pensamiento">"Entonces llegó Scolari y me dio las palabras que me faltaban."</div>
+        <div class="acto__content">
+          <div class="acto__image">
+            <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=2070&auto=format&fit=crop" alt="Libros y conocimiento" loading="lazy">
+          </div>
+          <div class="acto__text">
+            <p>Un libro, una frase, un descubrimiento. Carlos Scolari me mostró que las interfaces no son pantallas: son puentes entre mundos. El derecho, los seguros, la escuela, la tecnología… todo es interfaz. Todo necesita alguien que sepa traducir.</p>
+            <p>Y ahí lo entendí. Yo no era un instructor que aprendió tecnología. Era un cartógrafo que siempre había trazado mapas entre personas. Y ahora podía trazarlos también entre lo real y lo digital.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTO V -->
+    <section class="section acto acto--5" id="acto5">
+      <div class="container acto__container">
+        <div class="acto__pensamiento">"Construí Legalinnovación. No era una app, era un puente."</div>
+        <div class="acto__content">
+          <div class="acto__text">
+            <p>Un estudio legal necesitaba llegar a emprendedores. Un influencer necesitaba entender qué firmaba. Un asesor de seguros necesitaba explicar sin tecnicismos. Yo no les di tecnología: les di traducción.</p>
+            <p>Legalinnovación se convirtió en mi obra, mi prueba de concepto. Un lugar donde el derecho, los seguros y la tecnología dejaban de ser mundos separados para convertirse en un territorio navegable.</p>
+          </div>
+          <div class="acto__image">
+            <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1912&auto=format&fit=crop" alt="Legalinnovación" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTO VI -->
+    <section class="section acto acto--6" id="acto6">
+      <div class="container acto__container">
+        <div class="acto__pensamiento">"Hoy sé que mi oficio es mostrar caminos donde otros ven caos."</div>
+        <div class="acto__content">
+          <div class="acto__image">
+            <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2080&auto=format&fit=crop" alt="Guía y mentoría" loading="lazy">
+          </div>
+          <div class="acto__text">
+            <p>No importa si es una empresa que no entiende lo digital, un profesional que necesita reconvertirse, o alguien que simplemente está perdido. Mi trabajo es el mismo: sentarme con ellos, mirar su mapa interno, y ayudarlos a ver las rutas que ya tienen pero no saben que existen.</p>
+            <p>Porque todos tenemos un mapa. Solo hace falta alguien que nos enseñe a leerlo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYECTO DESTACADO -->
+    <section class="section project" id="proyecto">
+      <div class="container">
+        <div class="project__card">
+          <h2 class="project__title">LEGALINNOVACIÓN <span class="project__highlight">· El puente</span></h2>
+          <p style="font-size: 1.2rem; margin-bottom: 30px;">Una plataforma que conecta el mundo legal con las personas que lo necesitan. No es tecnología por tecnología: es traducción pura.</p>
+          <div class="project__grid">
+            <div class="project__item">
+              <h3 style="color: var(--color-accent); margin-bottom: 15px;">✦ PYMES</h3>
+              <p>Asesoría legal clara, sin jerigonza. Contratos, marcas, encuadre legal para e-commerce.</p>
+            </div>
+            <div class="project__item">
+              <h3 style="color: var(--color-accent); margin-bottom: 15px;">✦ INFLUENCERS</h3>
+              <p>Derechos digitales, contratos con marcas, protección de contenido.</p>
+            </div>
+            <div class="project__item">
+              <h3 style="color: var(--color-accent); margin-bottom: 15px;">✦ SEGUROS</h3>
+              <p>Reclamos a ART, hogar, tecnología. Traducción de la burocracia en pasos concretos.</p>
+            </div>
+          </div>
+          <p style="font-style: italic; color: var(--color-secondary); font-size: 1.1rem;">“Lo importante no es la tecnología. Es que la gente entienda.”</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section contact" id="contacto">
+      <div class="container">
+        <div class="section__header">
+          <h2 class="section__title">Tracemos juntos</h2>
+          <p class="section__subtitle">Si estás perdido en el laberinto digital, si necesitas un mapa para vos o tu equipo, escribime.</p>
+        </div>
+        <form class="form" id="contact-form">
+          <div class="form__group">
+            <label for="name" class="form__label">Nombre</label>
+            <input type="text" id="name" name="name" class="form__input" placeholder="Tu nombre" required>
+          </div>
+          <div class="form__group">
+            <label for="email" class="form__label">Correo</label>
+            <input type="email" id="email" name="email" class="form__input" placeholder="tucorreo@ejemplo.com" required>
+          </div>
+          <div class="form__group">
+            <label for="message" class="form__label">Mensaje</label>
+            <textarea id="message" name="message" rows="4" class="form__input" placeholder="Contame dónde necesitas un puente..."></textarea>
+          </div>
+          <button type="submit" class="form__button">Enviar mensaje</button>
+          <div class="form__status" id="form-status"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__social">
+        <a href="https://linkedin.com/in/damiangk77" target="_blank" rel="noopener" aria-label="LinkedIn">💼</a>
+        <a href="https://legalinnovacion.com" target="_blank" rel="noopener" aria-label="Legalinnovación">🌐</a>
+        <a href="mailto:damiangk77@gmail.com" aria-label="Email">✉️</a>
+      </div>
+      <p class="footer__copy">© 2026 Damián Krzychowiec · El Cartógrafo de Interfaces · Puentes Invisibles</p>
+    </div>
+  </footer>
+
+  <script defer>
+    (function() {
+      // Mobile menu
+      const menuToggle = document.getElementById('menuToggle');
+      const nav = document.getElementById('nav');
+      if (menuToggle && nav) {
+        menuToggle.addEventListener('click', () => {
+          nav.classList.toggle('nav--active');
+        });
+
+        // Close menu when clicking a link
+        const links = nav.querySelectorAll('.nav__link');
+        links.forEach(link => {
+          link.addEventListener('click', () => {
+            nav.classList.remove('nav--active');
+          });
+        });
+      }
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Form handling (simulado con Formspree, reemplazar con tu endpoint)
+      const form = document.getElementById('contact-form');
+      const statusDiv = document.getElementById('form-status');
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          statusDiv.textContent = 'Enviando...';
+          statusDiv.style.color = '#F39C12';
+
+          const formData = new FormData(form);
+          const data = Object.fromEntries(formData.entries());
+
+          try {
+            // Reemplazar con tu endpoint real de Formspree o backend
+            const response = await fetch('https://formspree.io/f/your-form-id', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+              statusDiv.textContent = '¡Mensaje enviado! Gracias. Te responderé pronto.';
+              statusDiv.style.color = '#1ABC9C';
+              form.reset();
+            } else {
+              statusDiv.textContent = 'Hubo un error. Podés escribirme directo a damiangk77@gmail.com';
+              statusDiv.style.color = '#F39C12';
+            }
+          } catch (error) {
+            statusDiv.textContent = 'Error de conexión. Escribime a damiangk77@gmail.com';
+            statusDiv.style.color = '#F39C12';
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
