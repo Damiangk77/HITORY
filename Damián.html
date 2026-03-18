@@ -748,21 +748,25 @@
       </div>
     </section>
 
-    <!-- ACTO VI -->
-    <section class="section acto acto--6" id="acto6">
-      <div class="container acto__container">
-        <div class="acto__pensamiento">"Hoy sé que mi oficio es mostrar caminos donde otros ven caos."</div>
-        <div class="acto__content">
-          <div class="acto__image">
-            <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2080&auto=format&fit=crop" alt="Guía y mentoría" loading="lazy">
-          </div>
-          <div class="acto__text">
-            <p>No importa si es una empresa que no entiende lo digital, un profesional que necesita reconvertirse, o alguien que simplemente está perdido. Mi trabajo es el mismo: sentarme con ellos, mirar su mapa interno, y ayudarlos a ver las rutas que ya tienen pero no saben que existen.</p>
-            <p>Porque todos tenemos un mapa. Solo hace falta alguien que nos enseñe a leerlo.</p>
-          </div>
-        </div>
+    <!-- ACTO VI (con tu foto y fallback) -->
+<section class="section acto acto--6" id="acto6">
+  <div class="container acto__container">
+    <div class="acto__pensamiento">"Hoy sé que mi oficio es mostrar caminos donde otros ven caos."</div>
+    <div class="acto__content">
+      <div class="acto__image acto__image--retrato">
+        <img src="/fotoPerfil.webp" 
+             alt="Damián Krzychowiec · El Cartógrafo de Interfaces" 
+             onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400?text=Damián+Krzychowiec';"
+             loading="lazy">
       </div>
-    </section>
+      <div class="acto__text">
+        <p>No importa si es una empresa que no entiende lo digital, un profesional que necesita reconvertirse, o alguien que simplemente está perdido. Mi trabajo es el mismo: sentarme con ellos, mirar su mapa interno, y ayudarlos a ver las rutas que ya tienen pero no saben que existen.</p>
+        <p>Porque todos tenemos un mapa. Solo hace falta alguien que nos enseñe a leerlo.</p>
+        <p style="margin-top: 30px; font-style: italic; color: var(--color-accent);">Ese alguien soy yo.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- PROYECTO DESTACADO -->
     <section class="section project" id="proyecto">
